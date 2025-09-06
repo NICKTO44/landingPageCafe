@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Artesanal Premium - Sabor Auténtico Peruano</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <!-- Hero Section Corregido -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Café Artesanal de Quillabamba</h1>
+            <p class="subheadline">Desde Cusco, Perú: el sabor auténtico del café cultivado con manos cafetaleras.</p>
+            <a href="#productos" class="cta-primary">Explorar Productos</a>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Benefits Section -->
+  <!-- Benefits Section Mejorada -->
+    <section class="benefits">
+        <h2>¿Por qué elegir nuestro café?</h2>
+        <p class="benefits-subtitle">Descubre lo que nos hace únicos - Haz clic en cada tarjeta</p>
+        
+        <div class="benefits-grid">
+            <div class="benefit-card" data-card="natural">
+                <div class="card-content">
+                    <div class="card-front">
+                        <div class="benefit-icon">🌱</div>
+                        <h3>100% Natural</h3>
+                        <p>Cultivado en las mejores tierras peruanas sin químicos ni pesticidas. Respetamos la naturaleza y tu salud.</p>
+                        <div class="click-indicator">👆</div>
+                    </div>
+                    <div class="card-back">
+                        <button class="flip-back-btn" onclick="flipCard(this)">✕</button>
+                        <img src="/imagenes/organico.jpg" alt="Café orgánico">
+                        <h4>Cultivo Orgánico</h4>
+                        <p>Nuestros granos crecen en suelos vírgenes de los Andes peruanos, libres de químicos y fertilizantes artificiales.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="benefit-card" data-card="artesanal">
+                <div class="card-content">
+                    <div class="card-front">
+                        <div class="benefit-icon">🔥</div>
+                        <h3>Tostado Artesanal</h3>
+                        <p>Cada lote es tostado a mano por maestros cafeteros con más de 20 años de experiencia.</p>
+                        <div class="click-indicator">👆</div>
+                    </div>
+                    <div class="card-back">
+                        <button class="flip-back-btn" onclick="flipCard(this)">✕</button>
+                        <img src="/imagenes/tostado-café-artesanal.jpg" alt="Tostado artesanal">
+                        <h4>Maestros Tostadores</h4>
+                        <p>Proceso artesanal que realza los sabores únicos de cada grano, controlando temperatura y tiempo con precisión.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="benefit-card" data-card="entrega">
+                <div class="card-content">
+                    <div class="card-front">
+                        <div class="benefit-icon">🚚</div>
+                        <h3>Entrega Fresca</h3>
+                        <p>Enviamos tu café recién tostado directamente a tu puerta en menos de 48 horas.</p>
+                        <div class="click-indicator">👆</div>
+                    </div>
+                    <div class="card-back">
+                        <button class="flip-back-btn" onclick="flipCard(this)">✕</button>
+                        <img src="/imagenes/home.jpg" alt="Entrega rápida">
+                        <h4>Frescura Garantizada</h4>
+                        <p>Empacado al vacío inmediatamente después del tostado para preservar todos los aromas y sabores.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="productos">
+        <h2>Nuestros Productos Estrella</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('/imagenes/cafe-organico2.jpg')"></div>
+                <div class="product-content">
+                    <h3 class="product-title">Blend Premium</h3>
+                    <p class="product-description">Mezcla perfecta de granos arábica de altura. Notas a chocolate y frutos secos.</p>
+                    <div class="product-price">S/ 25.00</div>
+                    <button class="cta-secondary" onclick="orderProduct('Blend Premium', 25)">Ordenar Ahora</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('/imagenes/cafe4.jpg')"></div>
+                <div class="product-content">
+                    <h3 class="product-title">Espresso Intenso</h3>
+                    <p class="product-description">Para los amantes del café fuerte. Cuerpo completo y aroma intenso.</p>
+                    <div class="product-price">S/ 30.00</div>
+                    <button class="cta-secondary" onclick="orderProduct('Espresso Intenso', 30)">Ordenar Ahora</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('/imagenes/cafe5.jpg')"></div>
+                <div class="product-content">
+                    <h3 class="product-title">Origen Especial</h3>
+                    <p class="product-description">Granos de una sola finca. Edición limitada con perfil único de sabor.</p>
+                    <div class="product-price">S/ 35.00</div>
+                    <button class="cta-secondary" onclick="orderProduct('Origen Especial', 35)">Ordenar Ahora</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('/imagenes/Cafe-organico.png')"></div>
+                <div class="product-content">
+                    <h3 class="product-title">Café Suave</h3>
+                    <p class="product-description">Perfecto para comenzar el día. Suave y aromático, ideal para toda la familia.</p>
+                    <div class="product-price">S/ 20.00</div>
+                    <button class="cta-secondary" onclick="orderProduct('Café Suave', 20)">Ordenar Ahora</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('/imagenes/tostado-café-artesanal.jpg')"></div>
+                <div class="product-content">
+                    <h3 class="product-title">Descafeinado</h3>
+                    <p class="product-description">Todo el sabor sin cafeína. Proceso natural que preserva el aroma original.</p>
+                    <div class="product-price">S/ 28.00</div>
+                    <button class="cta-secondary" onclick="orderProduct('Descafeinado', 28)">Ordenar Ahora</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('/imagenes/home.jpg')"></div>
+                <div class="product-content">
+                    <h3 class="product-title">Pack Degustación</h3>
+                    <p class="product-description">Prueba nuestros 3 mejores cafés en porciones pequeñas. Ideal para conocer tu favorito.</p>
+                    <div class="product-price">S/ 45.00</div>
+                    <button class="cta-secondary" onclick="orderProduct('Pack Degustación', 45)">Ordenar Ahora</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">El mejor café que he probado en Lima. La calidad es excepcional y el aroma llena toda la casa. Ya soy cliente frecuente.</p>
+                <div class="testimonial-author">- María González</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">Increíble servicio y producto. El café llega súper fresco y el sabor es incomparable. Lo recomiendo 100%.</p>
+                <div class="testimonial-author">- Carlos Mendoza</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">Como barista profesional, puedo confirmar que este café cumple con los más altos estándares. Excelente trabajo artesanal.</p>
+                <div class="testimonial-author">- Ana Pérez</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nuevo Testimonio Section -->
+    <section class="nuevo-testimonio">
+        <h2>¡Comparte tu experiencia!</h2>
+        <p>Ayuda a otros amantes del café conociendo tu opinión</p>
+        <div class="form-container">
+            <form id="testimonioForm">
+                <div class="form-group">
+                    <input type="text" id="nombreTestimonio" placeholder="Tu nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <select id="calificacionTestimonio" required>
+                        <option value="">Califica nuestro café</option>
+                        <option value="5">⭐⭐⭐⭐⭐ Excelente (5 estrellas)</option>
+                        <option value="4">⭐⭐⭐⭐ Muy bueno (4 estrellas)</option>
+                        <option value="3">⭐⭐⭐ Bueno (3 estrellas)</option>
+                        <option value="2">⭐⭐ Regular (2 estrellas)</option>
+                        <option value="1">⭐ Necesita mejorar (1 estrella)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="comentarioTestimonio" placeholder="Cuéntanos sobre tu experiencia..." required></textarea>
+                </div>
+                <div id="mensajeEstado" style="display: none;"></div>
+                <button type="submit" class="cta-primary" id="btnEnviar" style="width: 100%;">
+                    Enviar Testimonio
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact-form">
+        <h2>¡Haz tu pedido ahora!</h2>
+        <p>Completa el formulario y te contactaremos para confirmar tu pedido y coordinar la entrega.</p>
+        <div class="form-container">
+            <form id="orderForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Tu nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" placeholder="Tu número de WhatsApp" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Tu correo electrónico">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" placeholder="Cuéntanos qué productos te interesan y cualquier pregunta que tengas..."></textarea>
+                </div>
+                <button type="submit" class="cta-primary" style="width: 100%;">Enviar Pedido</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Trust Elements -->
+    <section class="trust-elements">
+        <div class="trust-grid">
+            <div class="trust-item">
+                <span class="trust-icon">🔒</span>
+                <span>Pago Seguro</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">🚚</span>
+                <span>Entrega Garantizada</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">↩️</span>
+                <span>Satisfacción 100%</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">⭐</span>
+                <span>+500 Clientes Felices</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Café Artesanal Premium</h3>
+                <p>📞 WhatsApp: +51 927 391 918</p>
+                <p>📧 Email: pedidos@cafeartesanal.pe</p>
+                <p>📍 Lima, Perú</p>
+            </div>
+            <div class="social-links">
+                <a href="#">📘</a>
+                <a href="#">📷</a>
+                <a href="#">🦆</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Café Artesanal Premium. Todos los derechos reservados.</p>
+                <p>Términos y Condiciones | Política de Privacidad</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/51927391918?text=Hola!%20Me%20interesa%20conocer%20más%20sobre%20sus%20cafés%20artesanales" class="whatsapp-float" target="_blank">
+        📱
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>

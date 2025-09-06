@@ -1,0 +1,1001 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Hero Section Responsive */
+.hero {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(101, 67, 33, 0.4), rgba(160, 82, 45, 0.3)),
+                url('/imagenes/cafe-artesanal.jpg') center center / cover no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+}
+
+/* Efecto shimmer */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(183, 125, 67, 0.2), rgba(131, 54, 19, 0.1));
+    animation: shimmer 4s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes shimmer {
+    0%, 100% { 
+        opacity: 0.2; 
+        transform: translateX(-100%);
+    }
+    50% { 
+        opacity: 0.4; 
+        transform: translateX(100%);
+    }
+}
+
+/* Contenido del hero */
+.hero-content {
+    max-width: 90%;
+    width: 100%;
+    max-width: 800px;
+    padding: 1rem;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: clamp(1.8rem, 5vw, 4rem);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+    animation: fadeInUp 1.2s ease-out;
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+.hero .subheadline {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    animation: fadeInUp 1.2s ease-out 0.3s both;
+    font-weight: 300;
+    line-height: 1.4;
+    max-width: 100%;
+}
+
+/* Botón responsive */
+.cta-primary {
+    background: linear-gradient(135deg, #D4A574, #B8860B);
+    color: white;
+    padding: clamp(0.8rem, 2vw, 1.5rem) clamp(1.5rem, 4vw, 4rem);
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
+    animation: fadeInUp 1.2s ease-out 0.6s both;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    min-width: 200px;
+    max-width: 90%;
+}
+
+.cta-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.cta-primary:hover::before {
+    left: 100%;
+}
+
+.cta-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(212, 165, 116, 0.6);
+    background: linear-gradient(135deg, #B8860B, #D4A574);
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Scroll indicator responsive */
+.scroll-indicator {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    animation: bounce 2s infinite;
+}
+
+.scroll-indicator::before {
+    content: '↓';
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: rgba(255,255,255,0.8);
+    animation: pulse 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(-8px); }
+    60% { transform: translateX(-50%) translateY(-4px); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+        /* Benefits Section Mejorada */
+        .benefits {
+            padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
+            background: linear-gradient(135deg, #f8f5f0, #e8e2d5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefits::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="coffee" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="2" fill="rgba(101,67,33,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23coffee)"/></svg>');
+            pointer-events: none;
+        }
+
+        .benefits h2 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            color: #654321;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
+            position: relative;
+            z-index: 2;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(101, 67, 33, 0.1);
+        }
+
+        .benefits h2::after {
+            content: '';
+            width: clamp(80px, 15vw, 120px);
+            height: 5px;
+            background: linear-gradient(135deg, #D4A574, #B8860B);
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+            box-shadow: 0 2px 8px rgba(212, 165, 116, 0.3);
+        }
+
+        .benefits-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            color: #8B6914;
+            margin-bottom: clamp(3rem, 6vw, 4rem);
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: clamp(2rem, 5vw, 3rem);
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .benefit-card {
+            background: linear-gradient(145deg, #ffffff, #f8f8f8);
+            padding: clamp(2rem, 4vw, 3rem);
+            border-radius: 25px;
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.1),
+                0 8px 16px rgba(101, 67, 33, 0.05),
+                inset 0 1px 0 rgba(255,255,255,0.8);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 165, 116, 0.1), transparent);
+            transform: rotate(-45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .benefit-card:hover::before {
+            opacity: 1;
+            animation: shimmerCard 1.5s ease-in-out;
+        }
+
+        @keyframes shimmerCard {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(-45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(-45deg); }
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.15),
+                0 15px 30px rgba(101, 67, 33, 0.1),
+                inset 0 1px 0 rgba(255,255,255,0.9);
+            border-color: #D4A574;
+        }
+
+        .benefit-card.flipped {
+            transform: rotateY(180deg) scale(1.05);
+        }
+
+        .card-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .benefit-card.flipped .card-content {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1), rgba(184, 134, 11, 0.05));
+            border-radius: 20px;
+        }
+
+        .benefit-icon {
+            font-size: clamp(4rem, 8vw, 5rem);
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
+            color: #B8860B;
+            text-shadow: 2px 2px 4px rgba(184, 134, 11, 0.2);
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .benefit-card:hover .benefit-icon {
+            transform: scale(1.1) translateY(-5px);
+            color: #D4A574;
+        }
+
+        .benefit-card h3 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #654321;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(101, 67, 33, 0.1);
+        }
+
+        .benefit-card p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: #666;
+            line-height: 1.7;
+            position: relative;
+            z-index: 2;
+            max-width: 100%;
+        }
+
+        /* Imágenes en el reverso */
+        .card-back img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .card-back h4 {
+            font-size: clamp(1.3rem, 3vw, 1.6rem);
+            color: #654321;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .card-back p {
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            color: #555;
+            text-align: center;
+        }
+
+        /* Botón para volver */
+        .flip-back-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(101, 67, 33, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .flip-back-btn:hover {
+            background: #654321;
+            transform: scale(1.1);
+        }
+
+        /* Efectos especiales */
+        .benefit-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .benefit-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .benefit-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .benefit-card {
+            animation: slideInUp 0.8s ease-out both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Indicador de interactividad */
+        .click-indicator {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #D4A574, #B8860B);
+            color: white;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.4);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .benefit-card {
+                min-height: 350px;
+                margin: 0 1rem;
+            }
+            
+            .card-back img {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .benefit-card {
+                min-height: 320px;
+                padding: 1.5rem;
+            }
+            
+            .click-indicator {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+        }
+/* Productos Section Responsive */
+.products {
+    padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem);
+    background: #654321;
+    color: white;
+    text-align: center;
+}
+
+.products h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+    color: #D4A574;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1.5rem, 4vw, 3rem);
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.product-card {
+    background: white;
+    color: #333;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+}
+
+.product-image {
+    width: 100%;
+    height: clamp(200px, 30vw, 250px);
+    background-size: cover;
+    background-position: center;
+}
+
+.product-content {
+    padding: clamp(1rem, 3vw, 2rem);
+}
+
+.product-title {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: #654321;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.product-description {
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.product-price {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: #B8860B;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.cta-secondary {
+    background: linear-gradient(135deg, #654321, #8B4513);
+    color: white;
+    padding: clamp(0.8rem, 2vw, 1rem) clamp(1rem, 3vw, 2rem);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
+    width: 100%;
+}
+
+.cta-secondary:hover {
+    background: linear-gradient(135deg, #8B4513, #654321);
+    transform: translateY(-2px);
+}
+
+/* Testimonios Responsive */
+.testimonials {
+    padding: clamp(2rem, 6vw, 3rem) clamp(1rem, 4vw, 2rem);
+    background: linear-gradient(135deg, #f8f5f0, #e8e2d5);
+    text-align: center;
+}
+
+.testimonials h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: #654321;
+    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+    max-width: 1000px;
+    margin: 0 auto;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    width: 100%;
+}
+
+.testimonial-card {
+    background: white;
+    padding: clamp(1rem, 3vw, 1.5rem);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    position: relative;
+    max-height: none;
+    overflow: visible;
+    width: 100%;
+}
+
+.testimonial-card::before {
+    content: '"';
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    color: #D4A574;
+    position: absolute;
+    top: 5px;
+    left: 15px;
+}
+
+.testimonial-text {
+    font-style: italic;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    color: #555;
+    padding-top: 1rem;
+}
+
+.testimonial-author {
+    font-weight: bold;
+    color: #654321;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+.stars {
+    color: #D4A574;
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    margin-bottom: 0.8rem;
+}
+
+.testimonio-fecha {
+    font-size: clamp(0.8rem, 2vw, 0.85rem);
+    color: #888;
+    margin-top: 0.3rem;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Carrusel indicadores responsive */
+.carrusel-indicadores {
+    display: flex;
+    justify-content: center;
+    gap: clamp(5px, 2vw, 10px);
+    margin-top: clamp(1rem, 3vw, 1.5rem);
+    flex-wrap: wrap;
+}
+
+.indicador {
+    width: clamp(8px, 2vw, 10px);
+    height: clamp(8px, 2vw, 10px);
+    border-radius: 50%;
+    background: rgba(101, 67, 33, 0.3);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.indicador.activo {
+    background: #654321;
+}
+
+.indicador:hover {
+    background: rgba(101, 67, 33, 0.7);
+}
+
+/* Formulario de testimonios responsive */
+.nuevo-testimonio {
+    padding: clamp(2rem, 6vw, 3rem) clamp(1rem, 4vw, 2rem);
+    background: linear-gradient(135deg, #f8f5f0, #e8e2d5);
+    text-align: center;
+    border-top: 3px solid #D4A574;
+}
+
+.nuevo-testimonio h2 {
+    font-size: clamp(1.8rem, 4vw, 2.3rem);
+    color: #654321;
+    margin-bottom: 0.8rem;
+    position: relative;
+}
+
+.nuevo-testimonio h2::after {
+    content: '';
+    width: clamp(60px, 15vw, 100px);
+    height: 4px;
+    background: linear-gradient(135deg, #D4A574, #B8860B);
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.nuevo-testimonio p {
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
+    color: #666;
+    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.form-group {
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
+    text-align: left;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: clamp(0.8rem, 2.5vw, 1rem) clamp(1rem, 3vw, 1.2rem);
+    border: none;
+    border-radius: 12px;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    background: rgba(255,255,255,0.95);
+    color: #333;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.3), 0 8px 25px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.form-group textarea {
+    height: clamp(80px, 15vw, 100px);
+    resize: vertical;
+    font-family: inherit;
+    min-height: 80px;
+}
+
+/* Contact form responsive */
+.contact-form {
+    padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem);
+    background: #654321;
+    text-align: center;
+}
+
+.contact-form h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: #D4A574;
+    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+}
+
+.contact-form p {
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    color: white;
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Trust elements responsive */
+.trust-elements {
+    padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem);
+    background: white;
+    text-align: center;
+}
+
+.trust-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.5rem, 2vw, 1rem);
+    color: #654321;
+    font-weight: bold;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    text-align: center;
+    flex-direction: column;
+}
+
+.trust-icon {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: #B8860B;
+}
+
+/* Footer responsive */
+.footer {
+    background: #2c1810;
+    color: white;
+    padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem) 1rem;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.footer-info {
+    margin-bottom: 2rem;
+}
+
+.footer-info h3 {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    color: #D4A574;
+    margin-bottom: 1rem;
+}
+
+.footer-info p {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    margin-bottom: 0.5rem;
+}
+
+.social-links {
+    margin: 2rem 0;
+}
+
+.social-links a {
+    color: #D4A574;
+    font-size: clamp(1.5rem, 4vw, 1.8rem);
+    margin: 0 clamp(0.5rem, 2vw, 1rem);
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 1rem;
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    color: #ccc;
+}
+
+.footer-bottom p {
+    margin-bottom: 0.5rem;
+}
+
+/* WhatsApp button responsive */
+.whatsapp-float {
+    position: fixed;
+    width: clamp(50px, 12vw, 60px);
+    height: clamp(50px, 12vw, 60px);
+    bottom: clamp(20px, 5vw, 30px);
+    right: clamp(20px, 5vw, 30px);
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+    animation: bounceWhatsApp 2s infinite;
+    text-decoration: none;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+}
+
+@keyframes bounceWhatsApp {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-3px); }
+}
+
+/* Estados de mensaje responsive */
+.mensaje-estado {
+    padding: clamp(0.7rem, 2vw, 0.8rem);
+    border-radius: 8px;
+    margin: clamp(0.7rem, 2vw, 0.8rem) 0;
+    font-weight: 500;
+    font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+    word-wrap: break-word;
+}
+
+.mensaje-estado.success {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    color: #155724;
+    border: 2px solid #28a745;
+}
+
+.mensaje-estado.error {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    color: #721c24;
+    border: 2px solid #dc3545;
+}
+
+.mensaje-estado.warning {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    color: #856404;
+    border: 2px solid #ffc107;
+}
+
+/* Media queries específicos */
+@media (max-width: 768px) {
+    .hero {
+        background-attachment: scroll;
+        min-height: 100vh;
+        height: auto;
+        padding: 2rem 0;
+    }
+    
+    .hero-content {
+        padding: 2rem 1rem;
+    }
+    
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .trust-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .benefits-grid,
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .scroll-indicator {
+        bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        min-height: 100vh;
+        padding: 1rem 0;
+    }
+    
+    .hero-content {
+        padding: 1rem 0.5rem;
+    }
+    
+    .cta-primary {
+        min-width: 250px;
+        max-width: 95%;
+    }
+    
+    .form-container {
+        padding: 0 0.5rem;
+    }
+    
+    .testimonio-fecha {
+        display: none;
+    }
+    
+    .trust-grid {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .trust-item {
+        width: 100%;
+    }
+}
+
+/* Muy pequeño (menos de 320px) */
+@media (max-width: 320px) {
+    .hero-content {
+        padding: 1rem 0.25rem;
+    }
+    
+    .cta-primary {
+        min-width: 200px;
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .benefit-card,
+    .product-card,
+    .testimonial-card {
+        margin: 0 0.5rem;
+    }
+}
