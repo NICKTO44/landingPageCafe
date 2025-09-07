@@ -1,3 +1,4 @@
+const API_BASE_URL = 'https://landingpagecafe-production.up.railway.app';
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -96,7 +97,7 @@ let carruselInterval;
 
 async function cargarTestimoniosDB() {
     try {
-        const response = await fetch('/api/testimonios');
+        const response = await fetch(`${API_BASE_URL}/api/testimonios`);
         const data = await response.json();
         
         if (data.testimonios && data.testimonios.length > 0) {
@@ -340,7 +341,7 @@ async function enviarTestimonioNuevo(e) {
     }
     
     try {
-        const response = await fetch('/api/testimonios', {
+        const response = await fetch(`${API_BASE_URL}/api/testimonios`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

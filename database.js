@@ -77,7 +77,7 @@ class Database {
         }
     }
 
-    // Obtener testimonios aprobados
+ // Obtener testimonios aprobados - VERSIÓN CORREGIDA
     async getTestimoniosAprobados(limit = 6) {
         const query = `
             SELECT id, nombre, calificacion, comentario, fecha_creacion
@@ -88,7 +88,8 @@ class Database {
         `;
         
         try {
-            const [rows] = await this.pool.execute(query, [limit]);
+            // ✅ FIX: Convertir limit a entero
+            const [rows] = await this.pool.execute(query, [parseInt(limit)]);
             return rows;
         } catch (error) {
             console.error('Error obteniendo testimonios:', error);
