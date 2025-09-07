@@ -1012,3 +1012,164 @@ body {
         margin: 0 0.5rem;
     }
 }
+/* ===== FIX ESPECÍFICO PARA TARJETAS EN MÓVIL ===== */
+@media (max-width: 768px) {
+    .benefits-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 2rem !important;
+    }
+    
+    .benefit-card {
+        width: 100% !important;
+        max-width: 350px !important;
+        height: 400px !important;
+        margin: 0 auto !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .benefit-card {
+        max-width: 320px !important;
+        height: 380px !important;
+    }
+}
+/* ===== OPTIMIZACIÓN DE ESPACIADO PARA MÓVIL ===== */
+@media (max-width: 768px) {
+    /* Reducir padding general de secciones */
+    .benefits {
+        padding: 2rem 1rem;
+    }
+    
+    .products {
+        padding: 2rem 1rem;
+    }
+    
+    .testimonials {
+        padding: 1.5rem 1rem;
+    }
+    
+    .nuevo-testimonio {
+        padding: 1.5rem 1rem;
+    }
+    
+    .contact-form {
+        padding: 2rem 1rem;
+    }
+    
+    .trust-elements {
+        padding: 1.5rem 1rem;
+    }
+    
+    /* Reducir espaciado entre elementos */
+    .benefits h2 {
+        margin-bottom: 1rem;
+    }
+    
+    .benefits-subtitle {
+        margin-bottom: 2rem;
+    }
+    
+    .benefits-grid {
+        gap: 1.5rem;
+    }
+    
+    .benefit-card {
+        height: 320px;
+        max-width: 300px;
+    }
+    
+    /* Reducir espacios en formularios */
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .form-group textarea {
+        height: 80px;
+    }
+    
+    /* Compactar trust elements */
+    .trust-grid {
+        gap: 1rem;
+    }
+    
+    .trust-item {
+        font-size: 0.85rem;
+    }
+    
+    .trust-icon {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Aún más compacto para móviles pequeños */
+    .benefits {
+        padding: 1.5rem 0.5rem;
+    }
+    
+    .benefit-card {
+        height: 280px;
+        max-width: 280px;
+    }
+    
+    .card-front, .card-back {
+        padding: 1rem;
+    }
+    
+    .benefit-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .benefit-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .benefit-card p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+}
+/* ===== TRUST ELEMENTS EN 2 COLUMNAS PARA MÓVIL ===== */
+@media (max-width: 768px) {
+    .trust-elements {
+        padding: 1rem;
+    }
+    
+    .trust-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .trust-item {
+        flex-direction: column;
+        text-align: center;
+        font-size: 0.8rem;
+        gap: 0.3rem;
+    }
+    
+    .trust-icon {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .trust-grid {
+        max-width: 280px;
+        gap: 0.8rem;
+    }
+    
+    .trust-item {
+        font-size: 0.75rem;
+    }
+    
+    .trust-icon {
+        font-size: 1.1rem;
+    }
+}
