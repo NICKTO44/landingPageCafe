@@ -78,24 +78,18 @@ class Database {
     }
 
  // Obtener testimonios aprobados - VERSIÓN CORREGIDA
-    async getTestimoniosAprobados(limit = 6) {
-        const query = `
-            SELECT id, nombre, calificacion, comentario, fecha_creacion
-            FROM testimonios 
-            WHERE estado = 'aprobado'
-            ORDER BY fecha_creacion DESC 
-            LIMIT ?
-        `;
-        
-        try {
-            // ✅ FIX: Convertir limit a entero
-            const [rows] = await this.pool.execute(query, [parseInt(limit)]);
-            return rows;
-        } catch (error) {
-            console.error('Error obteniendo testimonios:', error);
-            throw error;
-        }
+async getTestimoniosAprobados(limit = 6) {
+    // Usar template literal en lugar de parámetro
+    const query = `SELECT id, nombre, calificacion, comentario, fecha_creacion FROM testimonios WHERE estado = 'aprobado' ORDER BY fecha_creacion DESC LIMIT ${parseInt(limit)}`;
+    
+    try {
+        const [rows] = await this.pool.execute(query);
+        return rows;
+    } catch (error) {
+        console.error('Error obteniendo testimonios:', error);
+        throw error;
     }
+}
 
     // Obtener testimonios pendientes (para moderación)
     async getTestimoniosPendientes() {

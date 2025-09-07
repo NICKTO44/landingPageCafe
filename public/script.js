@@ -1,4 +1,5 @@
-const API_BASE_URL = 'https://landingpagecafe-production.up.railway.app';
+// Para pruebas locales:
+const API_BASE_URL = 'http://localhost:3000'; // Tu servidor local
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
