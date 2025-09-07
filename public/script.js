@@ -1,5 +1,7 @@
-const API_BASE_URL = 'https://landingpagecafe-production.up.railway.app';
 
+// Por esto:
+const isLocalhost = window.location.hostname === 'localhost';
+const API_BASE_URL = isLocalhost ? '' : 'https://landingpagecafe-production.up.railway.app';
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
