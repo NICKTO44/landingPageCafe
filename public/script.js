@@ -1,5 +1,5 @@
-const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-const API_BASE_URL = isLocal ? 'http://localhost:3000' :
+const API_BASE_URL = 'https://landingpagecafe-production.up.railway.app';
+
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -98,12 +98,21 @@ let carruselInterval;
 
 async function cargarTestimoniosDB() {
     try {
+        console.log('Cargando desde:', `${API_BASE_URL}/api/testimonios`);
         const response = await fetch(`${API_BASE_URL}/api/testimonios`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const data = await response.json();
+        console.log('Datos recibidos:', data);
         
         if (data.testimonios && data.testimonios.length > 0) {
             testimoniosData = data.testimonios;
+            console.log('Usando testimonios reales de la BD');
             iniciarCarruselTestimonios();
+            return; // Importante: salir aquí si todo funciona
         }
     } catch (error) {
         console.log('Usando testimonios por defecto');
