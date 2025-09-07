@@ -164,10 +164,10 @@ async function iniciarServidor() {
     try {
         await db.createTable();
         
-        app.listen(PORT, () => {
-            console.log(`Servidor ejecutándose en puerto ${PORT}`);
-            console.log(`Testimonios: http://localhost:${PORT}`);
-            console.log(`Admin: http://localhost:${PORT}/admin/testimonios?password=cafe2024admin`);
+        // ✅ CAMBIO PRINCIPAL: agregar '0.0.0.0' para Railway
+        app.listen(PORT, '0.0.0.0', () => {
+            console.log(`🚀 Servidor ejecutándose en puerto ${PORT}`);
+            console.log(`📝 Admin endpoint: /admin/testimonios?password=${process.env.ADMIN_PASSWORD || 'cafe2024admin'}`);
         });
     } catch (error) {
         console.error('Error iniciando servidor:', error);

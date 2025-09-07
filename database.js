@@ -3,14 +3,26 @@ require('dotenv').config();
 
 class Database {
     constructor() {
+        // Debug: verificar variables de entorno
+        console.log('DB_HOST:', process.env.DB_HOST);
+        console.log('DB_PORT:', process.env.DB_PORT);
+        console.log('DB_USER:', process.env.DB_USER);
+        console.log('DB_NAME:', process.env.DB_NAME);
+        
         this.pool = mysql.createPool({
             host: process.env.DB_HOST || 'localhost',
             user: process.env.DB_USER || 'root',
             password: process.env.DB_PASSWORD || '',
             database: process.env.DB_NAME || 'cafe_testimonios',
+            port: process.env.DB_PORT || 3306,
             waitForConnections: true,
             connectionLimit: 10,
-            queueLimit: 0
+            queueLimit: 0,
+            // Configuraciones adicionales para Railway
+            acquireTimeout: 60000,
+            timeout: 60000,
+            reconnect: true,
+            ssl: { rejectUnauthorized: false }
         });
     }
 
