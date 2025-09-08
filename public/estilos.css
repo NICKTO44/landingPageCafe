@@ -16,7 +16,7 @@ body {
 .hero {
     height: 100vh;
     width: 100%;
-    background: linear-gradient(135deg, rgba(101, 67, 33, 0.4), rgba(160, 82, 45, 0.3)),
+    background: linear-gradient(135deg, rgba(134, 80, 26, 0.4), rgba(28, 12, 4, 0.3)),
                 url('/imagenes/cafe-artesanal.jpg') center center / cover no-repeat;
     background-attachment: fixed;
     display: flex;
@@ -33,7 +33,7 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(45deg, rgba(183, 125, 67, 0.2), rgba(131, 54, 19, 0.1));
+    background: linear-gradient(45deg, rgba(155, 108, 7, 0.2), rgba(134, 87, 31, 0.1));
     animation: shimmer 4s ease-in-out infinite;
     z-index: 1;
 }
@@ -484,8 +484,10 @@ body {
 .product-image {
     width: 100%;
     height: clamp(200px, 30vw, 250px);
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+     background-repeat: no-repeat;
+    background-color: #533502; /* Color de fondo suave */
 }
 
 .product-content {
@@ -1185,7 +1187,17 @@ body {
 /* Para móvil - mantener tamaño moderado */
 @media (max-width: 480px) {
     .card-back img {
-        max-width: 350px;
-        height: 230px;
+        max-width: 340px;
+        height: 220px;
     }
+}
+
+.social-links svg {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.social-links a:hover svg {
+    transform: scale(1.2);
 }
