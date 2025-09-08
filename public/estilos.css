@@ -1201,3 +1201,13 @@ body {
 .social-links a:hover svg {
     transform: scale(1.2);
 }
+/* Estilos para los nuevos iconos SVG */
+.benefit-icon svg {
+    color: #B8860B;
+    transition: all 0.3s ease;
+}
+
+.benefit-card:hover .benefit-icon svg {
+    color: #D4A574;
+    transform: scale(1.1);
+}
