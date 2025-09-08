@@ -357,8 +357,8 @@ body {
 
 .card-back img {
     width: 100%;
-    max-width: 200px;
-    height: 120px;
+    max-width: 350px; /* Aumentar de 200px a 250px */
+    height: 150px; /* Aumentar de 120px a 150px */
     object-fit: cover;
     border-radius: 15px;
     margin-bottom: 1rem;
@@ -1171,5 +1171,21 @@ body {
     
     .trust-icon {
         font-size: 1.1rem;
+    }
+}
+
+/* Para desktop - imágenes aún más grandes */
+@media (min-width: 769px) {
+    .card-back img {
+        max-width: 280px;
+        height: 180px;
+    }
+}
+
+/* Para móvil - mantener tamaño moderado */
+@media (max-width: 480px) {
+    .card-back img {
+        max-width: 350px;
+        height: 230px;
     }
 }
