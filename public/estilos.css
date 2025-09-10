@@ -64,24 +64,23 @@ body {
     font-family: 'Playfair Display', serif;
     font-weight: bold;
     margin-bottom: 1rem;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
-    animation: fadeInUp 1.2s ease-out;
     letter-spacing: 1px;
     line-height: 1.2;
-    /* Efectos combinados */
+    
+    /* Efectos typewriter optimizados */
     border-right: 3px solid #D4A574;
     white-space: nowrap;
     overflow: hidden;
     margin: 0 auto 1rem;
     max-width: fit-content;
-
-       animation: 
-        typewriter 5s steps(35) 1s both,  /* Aumenté de 30 a 35 steps y de 4s a 5s */
-        blink 1s infinite 6s,             /* Ajusté el timing */
-        glow 3s ease-in-out infinite 6s,  /* Ajusté el timing */
-        removeBorder 0.1s 7s forwards;    /* Ajusté el timing */
     
-    /* Sombra base */
+    /* Animaciones secuenciales */
+    animation: 
+        typewriter 6s steps(45) 0.8s both,
+        blink 1s infinite 7s,
+        glow 3s ease-in-out infinite 7.5s,
+        removeBorder 0.1s 8.5s forwards;
+    
     text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
 }
 /* Agregar estas animaciones al final de tu CSS */
@@ -120,23 +119,33 @@ body {
 /* Para móviles (importante) */
 @media (max-width: 768px) {
     .hero h1 {
-        white-space: normal;
-        overflow: visible;
-        border-right: none;
-        animation: fadeInBounce 2s ease-out;
+        font-size: clamp(1.4rem, 4.5vw, 2.2rem);
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 2px solid #D4A574;
         max-width: 100%;
         margin: 0 auto 1rem;
+        
+        /* Versión móvil más rápida */
+        animation: 
+            typewriter-mobile 3.5s steps(35) 0.5s both,
+            blink-mobile 0.8s infinite 4.2s,
+            glow-mobile 2.5s ease-in-out infinite 4.5s,
+            removeBorder 0.1s 5.5s forwards;
+        
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+        letter-spacing: 0.5px;
     }
-    
-    @keyframes fadeInBounce {
-        0% {
-            opacity: 0;
-            transform: translateY(30px) scale(0.9);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+        animation: 
+            typewriter-small 4s steps(30) 0.5s both,
+            blink-mobile 0.8s infinite 4.8s,
+            glow-mobile 2.5s ease-in-out infinite 5s,
+            removeBorder 0.1s 6s forwards;
     }
 }
 
@@ -1289,4 +1298,36 @@ body {
 .benefit-card:hover .benefit-icon svg {
     color: #D4A574;
     transform: scale(1.1);
+}
+
+/* Animaciones móviles optimizadas */
+@keyframes typewriter-mobile {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+@keyframes typewriter-small {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+@keyframes blink-mobile {
+    0%, 50% { border-color: #D4A574; }
+    51%, 100% { border-color: transparent; }
+}
+
+@keyframes glow-mobile {
+    from {
+        text-shadow: 
+            1px 1px 3px rgba(0,0,0,0.9),
+            0 0 3px #D4A574,
+            0 0 6px #D4A574;
+    }
+    to {
+        text-shadow: 
+            1px 1px 3px rgba(0,0,0,0.9),
+            0 0 8px #D4A574,
+            0 0 15px #D4A574,
+            0 0 20px #D4A574;
+    }
 }
