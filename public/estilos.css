@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter', sans-serif;
     line-height: 1.6;
     color: #333;
     overflow-x: hidden;
@@ -61,16 +61,88 @@ body {
 
 .hero h1 {
     font-size: clamp(1.8rem, 5vw, 4rem);
+    font-family: 'Playfair Display', serif;
     font-weight: bold;
     margin-bottom: 1rem;
     text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
     animation: fadeInUp 1.2s ease-out;
     letter-spacing: 1px;
     line-height: 1.2;
+    /* Efectos combinados */
+    border-right: 3px solid #D4A574;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    max-width: fit-content;
+
+       animation: 
+        typewriter 5s steps(35) 1s both,  /* Aumenté de 30 a 35 steps y de 4s a 5s */
+        blink 1s infinite 6s,             /* Ajusté el timing */
+        glow 3s ease-in-out infinite 6s,  /* Ajusté el timing */
+        removeBorder 0.1s 7s forwards;    /* Ajusté el timing */
+    
+    /* Sombra base */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+/* Agregar estas animaciones al final de tu CSS */
+@keyframes typewriter {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+@keyframes blink {
+    0%, 50% { border-color: #D4A574; }
+    51%, 100% { border-color: transparent; }
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 
+            2px 2px 4px rgba(0,0,0,0.8),
+            0 0 5px #D4A574,
+            0 0 10px #D4A574,
+            0 0 15px #D4A574;
+    }
+    to {
+        text-shadow: 
+            2px 2px 4px rgba(0,0,0,0.8),
+            0 0 10px #D4A574,
+            0 0 20px #D4A574,
+            0 0 30px #D4A574,
+            0 0 40px #D4A574;
+    }
+}
+
+@keyframes removeBorder {
+    to { border-right: none; }
+}
+
+/* Para móviles (importante) */
+@media (max-width: 768px) {
+    .hero h1 {
+        white-space: normal;
+        overflow: visible;
+        border-right: none;
+        animation: fadeInBounce 2s ease-out;
+        max-width: 100%;
+        margin: 0 auto 1rem;
+    }
+    
+    @keyframes fadeInBounce {
+        0% {
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
 }
 
 .hero .subheadline {
     font-size: clamp(1rem, 3vw, 1.5rem);
+    font-family: 'Inter', sans-serif;
     margin-bottom: 2rem;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     animation: fadeInUp 1.2s ease-out 0.3s both;
@@ -84,6 +156,7 @@ body {
     color: white;
     padding: clamp(0.8rem, 2vw, 1.5rem) clamp(1.5rem, 4vw, 4rem);
     font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-family: 'Inter', sans-serif;
     border: none;
     border-radius: 50px;
     cursor: pointer;
@@ -183,6 +256,7 @@ body {
 
 .benefits h2 {
     font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-family: 'Playfair Display', serif;
     color: #654321;
     margin-bottom: clamp(1rem, 3vw, 1.5rem);
     position: relative;
@@ -328,6 +402,7 @@ body {
 
 .benefit-card h3, .card-back h4 {
     font-size: clamp(1.4rem, 4vw, 1.8rem);
+    font-family: 'Playfair Display', serif;
     color: #654321;
     margin-bottom: clamp(1rem, 3vw, 1.5rem);
     font-weight: bold;
@@ -455,10 +530,10 @@ body {
 
 .products h2 {
     font-size: clamp(2rem, 5vw, 3rem);
+    font-family: 'Playfair Display', serif;
     margin-bottom: clamp(2rem, 5vw, 3rem);
     color: #D4A574;
 }
-
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -496,6 +571,7 @@ body {
 
 .product-title {
     font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-family: 'Playfair Display', serif;
     color: #654321;
     margin-bottom: 1rem;
     font-weight: bold;
@@ -541,6 +617,7 @@ body {
 
 .testimonials h2 {
     font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-family: 'Playfair Display', serif;
     color: #654321;
     margin-bottom: clamp(1.5rem, 4vw, 2rem);
 }
@@ -639,6 +716,7 @@ body {
 
 .nuevo-testimonio h2 {
     font-size: clamp(1.8rem, 4vw, 2.3rem);
+    font-family: 'Playfair Display', serif;
     color: #654321;
     margin-bottom: 0.8rem;
     position: relative;
@@ -715,6 +793,7 @@ body {
 
 .contact-form h2 {
     font-size: clamp(2rem, 5vw, 3rem);
+    font-family: 'Playfair Display', serif;
     color: #D4A574;
     margin-bottom: clamp(1.5rem, 4vw, 2rem);
 }
