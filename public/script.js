@@ -1,7 +1,7 @@
-
 // Por esto:
 const isLocalhost = window.location.hostname === 'localhost';
 const API_BASE_URL = isLocalhost ? '' : 'https://landingpagecafe-production.up.railway.app';
+
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Cargar testimonios y configurar carrusel
+    // SOLO cargar testimonios UNA VEZ
     cargarTestimoniosDB();
     
     // Configurar formulario de testimonios
@@ -93,7 +93,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== SISTEMA DE TESTIMONIOS CON CARRUSEL =====
+// ===== SISTEMA DE TESTIMONIOS CON CARRUSEL (SOLO UNO) =====
 let testimoniosData = [];
 let currentTestimonioIndex = 0;
 let carruselInterval;
@@ -114,11 +114,10 @@ async function cargarTestimoniosDB() {
             testimoniosData = data.testimonios;
             console.log('Usando testimonios reales de la BD');
             iniciarCarruselTestimonios();
-            return; // Importante: salir aquí si todo funciona
+            return;
         }
     } catch (error) {
         console.log('Usando testimonios por defecto');
-        // Usar testimonios de respaldo
         testimoniosData = [
             {
                 estrellas: '★★★★★',
@@ -158,49 +157,40 @@ async function cargarTestimoniosDB() {
 function iniciarCarruselTestimonios() {
     if (testimoniosData.length === 0) return;
     
-    // Mostrar testimonios iniciales
     mostrarTestimoniosCarrusel();
-    
-    // Crear indicadores si hay suficientes testimonios
     setTimeout(crearIndicadores, 500);
     
-    // Iniciar rotación automática cada 5 segundos
     if (carruselInterval) clearInterval(carruselInterval);
     
     carruselInterval = setInterval(() => {
         const testimoniosPorPagina = window.innerWidth < 768 ? 1 : 3;
         currentTestimonioIndex += testimoniosPorPagina;
         
-        // Si llegamos al final, volver al inicio
         if (currentTestimonioIndex >= testimoniosData.length) {
             currentTestimonioIndex = 0;
         }
         
         mostrarTestimoniosCarrusel();
         actualizarIndicadores();
-    }, 5000); // 5 segundos
+    }, 5000);
 }
 
 function mostrarTestimoniosCarrusel() {
     const container = document.querySelector('.testimonials-grid');
     if (!container) return;
     
-    // Determinar cuántos testimonios mostrar (3 en desktop, 1 en móvil)
     const testimoniosPorPagina = window.innerWidth < 768 ? 1 : 3;
-    
-    // Obtener testimonios para esta "página"
     const testimoniosAMostrar = [];
+    
     for (let i = 0; i < testimoniosPorPagina; i++) {
         const index = (currentTestimonioIndex + i) % testimoniosData.length;
         testimoniosAMostrar.push(testimoniosData[index]);
     }
     
-    // Aplicar efecto de fade out
     container.style.opacity = '0';
     container.style.transform = 'translateY(20px)';
     
     setTimeout(() => {
-        // Cambiar contenido
         container.innerHTML = testimoniosAMostrar.map(testimonio => `
             <div class="testimonial-card testimonial-carrusel">
                 <div class="stars">${testimonio.estrellas}</div>
@@ -210,17 +200,15 @@ function mostrarTestimoniosCarrusel() {
             </div>
         `).join('');
         
-        // Aplicar efecto de fade in
         container.style.opacity = '1';
         container.style.transform = 'translateY(0)';
-    }, 300); // Esperar 300ms para el fade out
+    }, 300);
 }
 
 function crearIndicadores() {
     const testimoniosSection = document.querySelector('.testimonials');
     if (!testimoniosSection || testimoniosData.length <= 3) return;
     
-    // Limpiar indicadores existentes
     const indicadoresExistentes = testimoniosSection.querySelector('.carrusel-indicadores');
     if (indicadoresExistentes) {
         indicadoresExistentes.remove();
@@ -246,8 +234,6 @@ function irAPagina(pagina) {
     currentTestimonioIndex = pagina * testimoniosPorPagina;
     mostrarTestimoniosCarrusel();
     actualizarIndicadores(pagina);
-    
-    // Reanudar después de 10 segundos
     setTimeout(reanudarCarrusel, 10000);
 }
 
@@ -263,7 +249,6 @@ function actualizarIndicadores(paginaActiva = null) {
     });
 }
 
-// Pausar carrusel cuando el usuario está interactuando
 function pausarCarrusel() {
     if (carruselInterval) {
         clearInterval(carruselInterval);
@@ -274,7 +259,6 @@ function reanudarCarrusel() {
     iniciarCarruselTestimonios();
 }
 
-// Controles manuales
 function siguienteTestimonio() {
     pausarCarrusel();
     const testimoniosPorPagina = window.innerWidth < 768 ? 1 : 3;
@@ -284,8 +268,6 @@ function siguienteTestimonio() {
     }
     mostrarTestimoniosCarrusel();
     actualizarIndicadores();
-    
-    // Reanudar después de 10 segundos
     setTimeout(reanudarCarrusel, 10000);
 }
 
@@ -298,19 +280,8 @@ function anteriorTestimonio() {
     }
     mostrarTestimoniosCarrusel();
     actualizarIndicadores();
-    
-    // Reanudar después de 10 segundos
     setTimeout(reanudarCarrusel, 10000);
 }
-
-// Pausar cuando el mouse está sobre los testimonios
-document.addEventListener('DOMContentLoaded', function() {
-    const testimoniosSection = document.querySelector('.testimonials');
-    if (testimoniosSection) {
-        testimoniosSection.addEventListener('mouseenter', pausarCarrusel);
-        testimoniosSection.addEventListener('mouseleave', reanudarCarrusel);
-    }
-});
 
 // ===== FORMULARIO DE TESTIMONIOS =====
 async function enviarTestimonioNuevo(e) {
@@ -330,7 +301,6 @@ async function enviarTestimonioNuevo(e) {
     const calificacion = parseInt(calificacionEl.value);
     const comentario = comentarioEl.value.trim();
     
-    // Validaciones
     if (!nombre || nombre.length < 2) {
         mostrarMensajeEstado('Ingresa tu nombre completo', 'error');
         return;
@@ -346,7 +316,6 @@ async function enviarTestimonioNuevo(e) {
         return;
     }
     
-    // Mostrar estado de carga
     if (btnEl) {
         btnEl.disabled = true;
         btnEl.textContent = 'Enviando...';
@@ -367,7 +336,6 @@ async function enviarTestimonioNuevo(e) {
             mostrarMensajeEstado(data.mensaje || '¡Testimonio enviado exitosamente!', 'success');
             document.getElementById('testimonioForm').reset();
             
-            // Recargar testimonios si fue aprobado
             if (data.estado === 'aprobado') {
                 setTimeout(() => cargarTestimoniosDB(), 1000);
             }
@@ -377,7 +345,7 @@ async function enviarTestimonioNuevo(e) {
         
     } catch (error) {
         console.error('Error:', error);
-        // Para demo, simular éxito
+        
         const estrellas = '★'.repeat(calificacion);
         const nuevoTestimonio = {
             estrellas,
@@ -390,7 +358,6 @@ async function enviarTestimonioNuevo(e) {
         mostrarMensajeEstado('¡Testimonio agregado exitosamente! (Modo demo)', 'success');
         document.getElementById('testimonioForm').reset();
         
-        // Actualizar carrusel
         setTimeout(() => {
             pausarCarrusel();
             currentTestimonioIndex = 0;
@@ -400,7 +367,6 @@ async function enviarTestimonioNuevo(e) {
         }, 1000);
         
     } finally {
-        // Restaurar botón
         if (btnEl) {
             btnEl.disabled = false;
             btnEl.textContent = 'Enviar Testimonio';
@@ -421,24 +387,23 @@ function mostrarMensajeEstado(mensaje, tipo) {
             }, 5000);
         }
         
-        // Scroll hacia el mensaje
         mensajeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 }
 
-// Limpiar intervalo cuando se cierra la página
-window.addEventListener('beforeunload', function() {
-    if (carruselInterval) {
-        clearInterval(carruselInterval);
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const testimoniosSection = document.querySelector('.testimonials');
+    if (testimoniosSection) {
+        testimoniosSection.addEventListener('mouseenter', pausarCarrusel);
+        testimoniosSection.addEventListener('mouseleave', reanudarCarrusel);
     }
 });
 
-// Recrear indicadores cuando cambia el tamaño de ventana
 window.addEventListener('resize', function() {
     clearTimeout(window.resizeTimeout);
     window.resizeTimeout = setTimeout(() => {
         crearIndicadores();
-        // Ajustar índice actual si es necesario
         const testimoniosPorPagina = window.innerWidth < 768 ? 1 : 3;
         if (currentTestimonioIndex >= testimoniosData.length) {
             currentTestimonioIndex = 0;
@@ -446,91 +411,689 @@ window.addEventListener('resize', function() {
         mostrarTestimoniosCarrusel();
     }, 250);
 });
- // Función para voltear las tarjetas
-        function flipCard(element) {
-            const card = element.closest('.benefit-card');
-            card.classList.toggle('flipped');
-        }
 
-        // Event listeners para todas las tarjetas
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.benefit-card');
-            
-            cards.forEach(card => {
-                // Clic en la tarjeta para voltear
-                card.addEventListener('click', function(e) {
-                    // No voltear si se hace clic en el botón de cerrar
-                    if (!e.target.classList.contains('flip-back-btn')) {
-                        this.classList.toggle('flipped');
-                    }
-                });
+window.addEventListener('beforeunload', function() {
+    if (carruselInterval) {
+        clearInterval(carruselInterval);
+    }
+});
 
-                // Efecto hover mejorado
-                card.addEventListener('mouseenter', function() {
-                    if (!this.classList.contains('flipped')) {
-                        this.style.transform = 'translateY(-10px) scale(1.02)';
-                    }
-                });
+// ===== BENEFITS CARDS =====
+function flipCard(element) {
+    const card = element.closest('.benefit-card');
+    card.classList.toggle('flipped');
+}
 
-                card.addEventListener('mouseleave', function() {
-                    if (!this.classList.contains('flipped')) {
-                        this.style.transform = 'translateY(0) scale(1)';
-                    }
-                });
-            });
-
-            // Animación de entrada secuencial
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animationDelay = entry.target.dataset.delay || '0s';
-                        entry.target.classList.add('animate-in');
-                    }
-                });
-            }, observerOptions);
-
-            cards.forEach((card, index) => {
-                card.dataset.delay = `${index * 0.2}s`;
-                observer.observe(card);
-            });
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.benefit-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            if (!e.target.classList.contains('flip-back-btn')) {
+                this.classList.toggle('flipped');
+            }
         });
 
-        // Efecto de partículas (opcional)
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.style.position = 'absolute';
-            particle.style.width = '4px';
-            particle.style.height = '4px';
-            particle.style.background = 'rgba(212, 165, 116, 0.6)';
-            particle.style.borderRadius = '50%';
-            particle.style.pointerEvents = 'none';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = '100%';
-            particle.style.animation = 'floatUp 4s linear forwards';
-            
-            document.querySelector('.benefits').appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 4000);
+        card.addEventListener('mouseenter', function() {
+            if (!this.classList.contains('flipped')) {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            }
+        });
+
+        card.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('flipped')) {
+                this.style.transform = 'translateY(0) scale(1)';
+            }
+        });
+    });
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationDelay = entry.target.dataset.delay || '0s';
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+
+    cards.forEach((card, index) => {
+        card.dataset.delay = `${index * 0.2}s`;
+        observer.observe(card);
+    });
+});
+
+// ===== PARTICLES EFFECT =====
+function createParticle() {
+    const benefitsSection = document.querySelector('.benefits');
+    if (!benefitsSection) return;
+    
+    const particle = document.createElement('div');
+    particle.style.position = 'absolute';
+    particle.style.width = '4px';
+    particle.style.height = '4px';
+    particle.style.background = 'rgba(212, 165, 116, 0.6)';
+    particle.style.borderRadius = '50%';
+    particle.style.pointerEvents = 'none';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.top = '100%';
+    particle.style.animation = 'floatUp 4s linear forwards';
+    
+    benefitsSection.appendChild(particle);
+    
+    setTimeout(() => {
+        if (particle.parentNode) {
+            particle.remove();
+        }
+    }, 4000);
+}
+
+setInterval(createParticle, 2000);
+
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes floatUp {
+        to {
+            transform: translateY(-100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// ===== FORMULARIO OPTIMIZADO =====
+document.addEventListener('DOMContentLoaded', function() {
+    const optimizedForm = document.getElementById('optimizedOrderForm');
+    if (optimizedForm) {
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingSpinner = document.querySelector('.loading-spinner');
+        const btnText = document.querySelector('.btn-text');
+        const successMessage = document.getElementById('successMessage');
+        const stepDots = document.querySelectorAll('.step-dot');
+        const messagePreview = document.getElementById('messagePreview');
+
+        function updateMessagePreview() {
+            const name = document.getElementById('customerName')?.value || '';
+            const phone = document.getElementById('whatsappNumber')?.value || '';
+            const zone = document.getElementById('deliveryZone')?.value || '';
+            const selectedProducts = Array.from(document.querySelectorAll('input[name="products"]:checked'))
+                .map(cb => cb.value);
+
+            if (name && phone) {
+                let message = `🟢 *NUEVO PEDIDO - CAFÉ DON CARLOS PORROA*\n\n`;
+                message += `👤 *Cliente:* ${name}\n`;
+                message += `📱 *WhatsApp:* +51 ${phone}\n`;
+                
+                if (selectedProducts.length > 0) {
+                    message += `☕ *Productos de interés:*\n`;
+                    selectedProducts.forEach(product => {
+                        message += `• ${product}\n`;
+                    });
+                }
+                
+                if (zone) {
+                    message += `📍 *Zona de entrega:* ${zone}\n`;
+                }
+                
+                message += `\n¡Gracias por elegir nuestro café artesanal! 🚀`;
+                
+                if (messagePreview) {
+                    messagePreview.textContent = message;
+                    messagePreview.style.display = 'block';
+                }
+            } else {
+                if (messagePreview) {
+                    messagePreview.style.display = 'none';
+                }
+            }
         }
 
-        // Crear partículas ocasionalmente
-        setInterval(createParticle, 2000);
+        const customerNameInput = document.getElementById('customerName');
+        const whatsappInput = document.getElementById('whatsappNumber');
+        const deliveryInput = document.getElementById('deliveryZone');
+        const productCheckboxes = document.querySelectorAll('input[name="products"]');
 
-        // CSS para animación de partículas
+        if (customerNameInput) customerNameInput.addEventListener('input', updateMessagePreview);
+        if (whatsappInput) whatsappInput.addEventListener('input', updateMessagePreview);
+        if (deliveryInput) deliveryInput.addEventListener('input', updateMessagePreview);
+        
+        productCheckboxes.forEach(cb => {
+            cb.addEventListener('change', updateMessagePreview);
+        });
+
+        function updateSteps(currentStep) {
+            stepDots.forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index < currentStep) {
+                    dot.classList.add('completed');
+                } else if (index === currentStep) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        function validatePeruvianPhone(phone) {
+            const cleaned = phone.replace(/\s+/g, '');
+            return /^9\d{8}$/.test(cleaned);
+        }
+
+        if (whatsappInput) {
+            whatsappInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 9) value = value.slice(0, 9);
+                
+                if (value.length > 3 && value.length <= 6) {
+                    value = value.slice(0, 3) + ' ' + value.slice(3);
+                } else if (value.length > 6) {
+                    value = value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6);
+                }
+                
+                e.target.value = value;
+                updateMessagePreview();
+            });
+        }
+
+        optimizedForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('customerName')?.value.trim() || '';
+            const phone = document.getElementById('whatsappNumber')?.value.trim() || '';
+            
+            if (!name) {
+                alert('Por favor ingresa tu nombre completo');
+                return;
+            }
+            
+            if (!validatePeruvianPhone(phone)) {
+                alert('Por favor ingresa un número de WhatsApp peruano válido (9 dígitos)');
+                return;
+            }
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                if (loadingSpinner) loadingSpinner.style.display = 'inline-block';
+                if (btnText) btnText.textContent = 'Enviando...';
+            }
+            updateSteps(1);
+
+            setTimeout(() => {
+                updateSteps(2);
+                
+                const zone = document.getElementById('deliveryZone')?.value || '';
+                const selectedProducts = Array.from(document.querySelectorAll('input[name="products"]:checked'))
+                    .map(cb => cb.value);
+
+                let whatsappMessage = `🟢 *NUEVO PEDIDO - CAFÉ DON CARLOS PORROA*%0A%0A`;
+                whatsappMessage += `👤 *Cliente:* ${name}%0A`;
+                whatsappMessage += `📱 *WhatsApp:* +51 ${phone}%0A`;
+                
+                if (selectedProducts.length > 0) {
+                    whatsappMessage += `☕ *Productos de interés:*%0A`;
+                    selectedProducts.forEach(product => {
+                        whatsappMessage += `• ${product}%0A`;
+                    });
+                }
+                
+                if (zone) {
+                    whatsappMessage += `📍 *Zona de entrega:* ${zone}%0A`;
+                }
+                
+                whatsappMessage += `%0A¡Gracias por elegir nuestro café artesanal! 🚀`;
+
+                const whatsappURL = `https://wa.me/51927391918?text=${whatsappMessage}`;
+                
+                if (optimizedForm && successMessage) {
+                    optimizedForm.style.display = 'none';
+                    successMessage.classList.add('show');
+                }
+                
+                const manualLink = document.getElementById('manualWhatsApp');
+                if (manualLink) {
+                    manualLink.href = whatsappURL;
+                }
+                
+                setTimeout(() => {
+                    window.open(whatsappURL, '_blank');
+                }, 1000);
+                
+            }, 2000);
+        });
+    }
+});
+
+// Productos animation
+function observeProducts() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('animate-in');
+                }, index * 200);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.product-card').forEach(card => {
+        observer.observe(card);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', observeProducts);
+
+// ===== SISTEMA DE ANIMACIONES SUAVES =====
+
+class SmoothScrollAnimations {
+    constructor() {
+        this.observer = null;
+        this.animatedElements = new Set();
+        this.init();
+    }
+
+    init() {
+        this.addStyles();
+        this.setupObserver();
+        this.initElements();
+    }
+
+    addStyles() {
         const style = document.createElement('style');
         style.textContent = `
-            @keyframes floatUp {
-                to {
-                    transform: translateY(-100vh) rotate(360deg);
-                    opacity: 0;
+            /* Animaciones suaves y elegantes */
+            .smooth-reveal {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: all 0.6s ease-out;
+            }
+
+            .smooth-reveal.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* Fade sutil */
+            .fade-in-subtle {
+                opacity: 0;
+                transition: opacity 0.8s ease-out;
+            }
+
+            .fade-in-subtle.visible {
+                opacity: 1;
+            }
+
+            /* Slide muy sutil */
+            .slide-up-gentle {
+                opacity: 0;
+                transform: translateY(15px);
+                transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+
+            .slide-up-gentle.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* Para tarjetas con hover mejorado */
+            .card-enhance {
+                transition: all 0.3s ease;
+            }
+
+            .card-enhance:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            }
+
+            /* Animación escalonada muy sutil */
+            .stagger-gentle {
+                opacity: 0;
+                transform: translateY(10px);
+                transition: all 0.5s ease-out;
+            }
+
+            .stagger-gentle.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* Parallax muy sutil solo para hero */
+            .parallax-subtle {
+                transition: transform 0.1s linear;
+            }
+
+            /* Respeto por usuarios que prefieren menos movimiento */
+            @media (prefers-reduced-motion: reduce) {
+                .smooth-reveal,
+                .fade-in-subtle,
+                .slide-up-gentle,
+                .stagger-gentle {
+                    transition: none;
+                    opacity: 1;
+                    transform: none;
+                }
+                
+                .parallax-subtle {
+                    transform: none !important;
                 }
             }
         `;
         document.head.appendChild(style);
+    }
+
+    setupObserver() {
+        const options = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animateElement(entry.target);
+                }
+            });
+        }, options);
+    }
+
+    animateElement(element) {
+        if (this.animatedElements.has(element)) return;
+        
+        const delay = parseInt(element.dataset.animationDelay || 0);
+        
+        setTimeout(() => {
+            element.classList.add('visible');
+            this.animatedElements.add(element);
+        }, delay);
+    }
+
+    initElements() {
+        // Aplicar animaciones muy sutiles automáticamente
+        
+        // Secciones principales - solo fade sutil
+        const sections = document.querySelectorAll('section:not(.hero)');
+        sections.forEach((section, index) => {
+            section.classList.add('fade-in-subtle');
+            section.dataset.animationDelay = (index * 100).toString();
+            this.observer.observe(section);
+        });
+
+        // Product cards - slide muy sutil + hover
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach((card, index) => {
+            card.classList.add('slide-up-gentle', 'card-enhance');
+            card.dataset.animationDelay = (index * 100).toString();
+            this.observer.observe(card);
+        });
+
+        // Benefit cards - solo fade + hover
+        const benefitCards = document.querySelectorAll('.benefit-card');
+        benefitCards.forEach((card, index) => {
+            card.classList.add('fade-in-subtle', 'card-enhance');
+            card.dataset.animationDelay = (index * 150).toString();
+            this.observer.observe(card);
+        });
+
+        // Testimonials - stagger muy sutil
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        testimonialCards.forEach((card, index) => {
+            card.classList.add('stagger-gentle');
+            card.dataset.animationDelay = (index * 80).toString();
+            this.observer.observe(card);
+        });
+
+        // Títulos principales - reveal sutil
+        const mainTitles = document.querySelectorAll('h2');
+        mainTitles.forEach(title => {
+            title.classList.add('smooth-reveal');
+            this.observer.observe(title);
+        });
+
+        // Solo parallax muy sutil en hero
+        this.setupSubtleParallax();
+    }
+
+    setupSubtleParallax() {
+        const hero = document.querySelector('.hero');
+        if (!hero) return;
+
+        let ticking = false;
+
+        const updateParallax = () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * 0.3; // Muy sutil
+            
+            if (window.innerWidth > 768) { // Solo en desktop
+                hero.style.backgroundPositionY = rate + 'px';
+            }
+            
+            ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        });
+    }
+
+    // Método para activar animaciones manualmente si es necesario
+    triggerAnimation(element) {
+        if (element && !this.animatedElements.has(element)) {
+            this.animateElement(element);
+        }
+    }
+
+    // Método para reiniciar animaciones si es necesario
+    reset() {
+        this.animatedElements.clear();
+        document.querySelectorAll('.visible').forEach(el => {
+            el.classList.remove('visible');
+        });
+    }
+}
+
+// Smooth scrolling mejorado y más suave
+function initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            
+            if (target) {
+                const headerOffset = 80;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+// Inicializar el sistema suave
+let smoothAnimations;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Esperar un poco para que todo esté cargado
+    setTimeout(() => {
+        smoothAnimations = new SmoothScrollAnimations();
+        initSmoothScrolling();
+    }, 100);
+});
+
+// Exportar para uso si es necesario
+window.smoothAnimations = smoothAnimations;
+
+// ===== CONTADORES ANIMADOS Y NEWSLETTER =====
+
+// Contador animado para estadísticas del footer
+function animateCounters() {
+    const counters = document.querySelectorAll('.counter-animation');
+    
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.dataset.animated) {
+                animateCounter(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    counters.forEach(counter => {
+        observer.observe(counter);
+    });
+}
+
+function animateCounter(element) {
+    const target = parseInt(element.dataset.target);
+    const duration = 2000;
+    const startTime = performance.now();
+    
+    const updateCounter = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = Math.round(target * easeOutQuart);
+        
+        element.textContent = current;
+        
+        if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+        } else {
+            element.dataset.animated = 'true';
+        }
+    };
+    
+    requestAnimationFrame(updateCounter);
+}
+
+// Newsletter form handler
+function handleNewsletterSubmit() {
+    const form = document.querySelector('.newsletter-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('.newsletter-input').value;
+            
+            if (!email) {
+                alert('Por favor ingresa tu email');
+                return;
+            }
+            
+            // Validar email básico
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Por favor ingresa un email válido');
+                return;
+            }
+            
+            const button = this.querySelector('.newsletter-button');
+            const originalText = button.textContent;
+            
+            // Simular carga
+            button.textContent = 'Enviando...';
+            button.disabled = true;
+            
+            // Simular respuesta después de 1 segundo
+            setTimeout(() => {
+                button.textContent = '¡Suscrito!';
+                button.style.background = '#28a745';
+                
+                // Mensaje de WhatsApp para newsletter
+                const whatsappMessage = `¡Hola! Me gustaría suscribirme al newsletter del café.%0A%0A📧 Email: ${email}%0A%0A¡Quiero recibir novedades sobre sus cafés artesanales!`;
+                
+                setTimeout(() => {
+                    // Abrir WhatsApp
+                    window.open(`https://wa.me/51927391918?text=${whatsappMessage}`, '_blank');
+                    
+                    // Resetear formulario después de enviar
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.background = '';
+                        button.disabled = false;
+                        this.reset();
+                    }, 2000);
+                }, 1000);
+                
+            }, 1000);
+        });
+    }
+}
+
+// Animaciones para trust elements
+function animateTrustElements() {
+    const trustItems = document.querySelectorAll('.trust-item');
+    
+    const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 150);
+            }
+        });
+    }, observerOptions);
+
+    trustItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(30px)';
+        item.style.transition = 'all 0.6s ease';
+        observer.observe(item);
+    });
+}
+
+// Smooth scroll para links del footer
+function initFooterLinks() {
+    const footerLinks = document.querySelectorAll('.footer-links a[href^="#"]');
+    
+    footerLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            
+            if (target) {
+                const headerOffset = 80;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+// Inicializar todas las funciones cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    // Esperar un poco para que otros scripts se carguen
+    setTimeout(() => {
+        animateCounters();
+        handleNewsletterSubmit();
+        animateTrustElements();
+        initFooterLinks();
+    }, 100);
+});
